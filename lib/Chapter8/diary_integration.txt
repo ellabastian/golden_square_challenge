@@ -1,0 +1,21 @@
+# 1 - gets all diary entries
+
+diary = Diary.new
+entry_1 = DiaryEntry.new("july", "One two three")
+entry_2 = DiaryEntry.new("august", "One two three")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.all => [entry_1, entry_2]
+
+
+# 2 - searches by keyword
+
+
+# 3 - searches by substring too
+
+
+# 4 - if no results, search yields empty list
+
+
+# 5 - formats individual tracks
+

@@ -1,21 +1,72 @@
 require "diary_entry"
 
-RSpec.describe DiaryEntry do
-    it "allows user to find out information about diary entries" do
-        entry = DiaryEntry.new("example title", "one two three")
-        result1 = entry.title
-        expect(result1).to eq "example title"
+RSpec.describe DiaryEntry do 
+    it 'Helps the user track different diary info' do 
+        diary_entry = DiaryEntry.new('my_Diary', 'my_contents')
+        expect(diary_entry.title).to eq 'my_Diary'
+        expect(diary_entry.contents).to eq 'my_contents'
+end
 
-        result2 = entry.contents
-        expect(result2).to eq "one two three"
+    describe "#count_words" do
+        it "returns the number of words in the contents" do
+            diary_entry = DiaryEntry.new("my_title", "some contents here")
+            expect(diary_entry.count_words).to eq 3
+    end
+        it "returns zero when contents is empty" do 
+            diary_entry = DiaryEntry.new("my_title", "")
+            expect(diary_entry.count_words).to eq 0
+        end
+    end
+        describe "#reading_time" do
+            context "given a wpm of some sensible number (200)" do
+                it "returns the ceiling of the number of minutes it takes to read the contents" do
+                    diary_entry = DiaryEntry.new("my_title", 'one ' * 550)
+                    expect(diary_entry.reading_time(200)).to eq 3
+            end
+        end
+        context "given a wpm of 0" do
+            it "fails" do
+                diary_entry = DiaryEntry.new("my_title" , 'one two three')
+                expect { diary_entry.reading_time(0) }.to raise_error "Reading speed must be above zero."
+            end
+        end
+    end
+    describe "#reading_chunk" do 
+        context "with a contents readable within the given minutes" do
+            it "returns the full contents" do
+                diary_entry = DiaryEntry.new("my_title" , 'one two three')
+                chunk = diary_entry.reading_chunk(200, 1)
+                expect(chunk).to eq 'one two three'
+            end
+        end
+        context "given a wpm of 0" do
+            it "fails" do
+                diary_entry = DiaryEntry.new("my_title" , 'one two three')
+                expect { diary_entry.reading_chunk(0, 5) }.to raise_error "Reading speed must be above zero."
+            end
+        end
 
-        result3 = entry.count_words
-        expect(result3).to eq 3
 
-        result4 = entry.reading_time(2)
-        expect(result4).to eq 2
+        context "with contents unreadable within the time" do 
+            it "returns a readable chunk" do
+            diary_entry = DiaryEntry.new("my_title" , 'one two three')
+                chunk = diary_entry.reading_chunk(2, 1)
+                expect(chunk).to eq 'one two'
+            end
 
-        # result5 = entry.reading_chunk(2, 1)
-        # expect(result5).to eq "three"
+            it "returns the next chunk next time we are asked" do
+                diary_entry = DiaryEntry.new("my_title", 'one two three')
+                    diary_entry.reading_chunk(2, 1)
+                    chunk = diary_entry.reading_chunk(2, 1)
+                    expect(chunk).to eq 'three'
+                end
+                it "restarts after reading the whole contents" do 
+                    diary_entry = DiaryEntry.new('my_title', 'one two three') 
+                    diary_entry.reading_chunk(2, 1)
+                    diary_entry.reading_chunk(2, 1)
+                    chunk = diary_entry.reading_chunk(2, 1)
+                    expect(chunk).to eq 'one two'
+                end
+        end
     end
 end

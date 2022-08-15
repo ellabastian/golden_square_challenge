@@ -2,11 +2,11 @@ require "grammar_stats"
 
 RSpec.describe GrammarStats do
     it "constructs" do
-        check_punctuation = GrammarStats.new(0, 0)
+        check_punctuation = GrammarStats.new()
     end
 
     it "checks whether a string begins with a capital letter and ends with punctuation" do
-        check_punctuation = GrammarStats.new(0, 0)
+        check_punctuation = GrammarStats.new()
         result = check_punctuation.check?("Hello, world!")
         expect(result).to eq true
 

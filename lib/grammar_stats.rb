@@ -1,8 +1,8 @@
 class GrammarStats
 
-    def initialize(count, positive) 
-        @count = count          
-        @positive = positive
+    def initialize() 
+        @count = 0         
+        @positive = 0
     end
   
     def check?(text) # text is a string
