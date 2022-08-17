@@ -1,26 +1,26 @@
 require "mark_tasks"
 
-RSpec.describe TodoList do
+RSpec.describe TodoList1 do
     it "constructs" do
-        todo = TodoList.new()
+        todo = TodoList1.new()
         # expect(todo).to eq [] 
     end
 
     it "adds tasks to a list" do
-        todo = TodoList.new()
+        todo = TodoList1.new()
         result1 = todo.add("Brush teeth")
         expect(result1).to eq ["Brush teeth"]
 
-        todo = TodoList.new()
+        todo = TodoList1.new()
         result2 = todo.add("")
         expect(result2).to eq [""]
     end
 
     it "lists current tasks" do
-        todo = TodoList.new()
+        todo = TodoList1.new()
         expect(todo.list).to eq []
 
-        todo = TodoList.new()
+        todo = TodoList1.new()
         add1 = todo.add("Pick children up from school")
         add2 = todo.add("Walk dog")
         result1 = todo.list
@@ -28,7 +28,7 @@ RSpec.describe TodoList do
     end
 
     it "removes completed tasks" do
-        todo = TodoList.new()
+        todo = TodoList1.new()
         add1 = todo.add("Pick children up from school")
         add2 = todo.add("Walk dog")
         result1 = todo.complete("Walk dog")
@@ -36,7 +36,7 @@ RSpec.describe TodoList do
     end
 
     it "raises an error if we try to complete a non existent task" do
-        todo = TodoList.new()
+        todo = TodoList1.new()
         add1 = todo.add("Pick children up from school")
         expect{todo.complete("Get on plane")}.to raise_error "No such task."
     end

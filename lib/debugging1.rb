@@ -4,5 +4,4 @@ def get_most_common_letter(text)
       counter[char] += 1
     end
     counter.to_a.sort_by { |k, v| v }
-    p counter
   end

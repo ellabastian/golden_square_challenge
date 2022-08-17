@@ -1,0 +1,58 @@
+>class Todo
+
+it constructs
+todo = Todo.new("Wash clothes")
+
+it returns the task
+todo = Todo.new("Wash clothes")
+expects(Todo.task).to eq "Wash clothes"
+
+it marks a task as done
+todo = Todo.new("Wash clothes")
+done = todo.mark_done!
+expects(done?).to eq true
+
+>class TodoList
+
+it constructs
+todo_list = TodoList.new
+
+>Integration
+
+it adds an instance of todo to a list
+todo = Todo.new("Wash clothes")
+todo_list = TodoList.new
+result = todo_list.add(todo)
+expect(result).to eq ["Wash clothes"]
+
+it when no instances of todo are added returns an empty list
+todo = Todo.new("")
+todo_list = TodoList.new
+result = todo_list.add(todo)
+expect(result).to eq [""]
+
+it returns all todos not marked as done/it returns all todos not marked as done
+todo_1 = Todo.new("Wash clothes")
+todo_2 = Todo.new("Food shopping")
+todo_3 = Todo.new("Pay bills")
+done_1 = todo_1.mark_done!
+done_2 = todo_2.mark_done!
+todo_list = TodoList.new
+result_1 = todo_list.add(todo_1)
+result_2 = todo_list.add(todo_2)
+result_3 = todo_list.add(todo_3)
+expect(todo_list.incomplete).to eq ["Pay bills"]
+expect(todo_list.complete).to eq ["Wash clothes", "Food shopping"]
+
+it marks all todos as complete
+todo_1 = Todo.new("Wash clothes")
+todo_2 = Todo.new("Food shopping")
+todo_3 = Todo.new("Pay bills")
+todo_list = TodoList.new
+result_1 = todo_list.add(todo_1)
+result_2 = todo_list.add(todo_2)
+result_3 = todo_list.add(todo_3)
+expect(todo_list.complete).to eq ["Wash clothes", "Food shopping", "Pay bills"]
+
+
+
