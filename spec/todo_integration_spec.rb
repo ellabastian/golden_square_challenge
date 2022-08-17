@@ -46,8 +46,9 @@ RSpec.describe "todo list integration" do
         task_2 = todo_2.task
         result_1 = todo_list.add(task_1)
         result_2 = todo_list.add(task_2)
-        done_1 = todo_1.mark_done!
-        done_2 = todo_2.mark_done!
+        todo_list.give_up!
+        # done_1 = todo_1.mark_done!
+        # done_2 = todo_2.mark_done!
         expect(todo_list.complete).to eq ["Wash clothes - DONE!", "Food shopping - DONE!"]
     end
 

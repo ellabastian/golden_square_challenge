@@ -19,7 +19,7 @@ class TodoList
     end
   
     def give_up!
-      @list.select {|task| task.mark_done!}
+      @list.map {|task| task << " - DONE!"}
     end
   end
  
